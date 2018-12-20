@@ -8,6 +8,16 @@ services:
     networks:
       - back
 
+  miner:
+    image: akropolisio/geth-miner
+    networks:
+      - eth
+    ports:
+      - "8545"
+      - "30303"
+    volumes:
+      - ./miner-data:/data/eth
+
   blockpipe:
     image: akropolisio/blockpipe:latest
     depends_on:
@@ -20,13 +30,6 @@ services:
       - RUST_BACKTRACE=1
       - PG_PATH=postgres://bp_writer:password@db/blockpipe
       - RPC_PATH=http://miner:8545/
-
-  miner:
-    image: akropolisio/geth-miner
-    networks:
-      - eth
-    volumes:
-      - ./miner-data:/data/eth
 
 networks:
   back:
