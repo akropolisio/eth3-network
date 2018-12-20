@@ -17,7 +17,9 @@ services:
       - back
       - eth
     environment:
+      - RUST_BACKTRACE=1
       - PG_PATH=postgres://bp_writer:password@db/blockpipe
+      - RPC_PATH=http://miner:8545/
 
   miner:
     image: akropolisio/geth-miner
