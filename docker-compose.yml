@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:10.5-alpine
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+    networks:
+      - back
+
+  blockpipe:
+    image: akropolisio/blockpipe:latest
+    depends_on:
+      - db
+      - miner
+    networks:
+      - back
+      - eth
+    environment:
+      - PG_PATH=postgres://bp_writer:password@db/blockpipe
+
+  miner:
+    image: akropolisio/geth-miner
+    networks:
+      - eth
+    volumes:
+      - ./miner-data:/data/eth
+
+networks:
+  back:
+  eth:
