@@ -5,14 +5,10 @@ services:
     image: postgres:10.5-alpine
     volumes:
       - ./db-data:/var/lib/postgresql/data
-    networks:
-      - back
 
   miner:
     image: akropolisio/geth-miner
     build: .
-    networks:
-      - eth
     ports:
       - "8545:8545"
       - "30303:30303"
@@ -21,19 +17,11 @@ services:
 
   blockpipe:
     image: akropolisio/blockpipe:latest
+    restart: always
     depends_on:
       - db
       - miner
-    networks:
-      - back
-      - eth
     environment:
       - RUST_BACKTRACE=1
       - PG_PATH=postgres://bp_writer:password@db/blockpipe
       - RPC_PATH=http://miner:8545/
-
-networks:
-  back:
-    driver: bridge
-  eth:
-    driver: bridge

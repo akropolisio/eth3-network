@@ -12,4 +12,4 @@ COPY ./genesis.json ./
 EXPOSE 8545
 EXPOSE 30303
 
-ENTRYPOINT ["geth", "--datadir", "/data/eth", "--rpc", "--rpcport", "8545", "--networkid", "2020", "--mine"]
+CMD ["geth", "--debug", "--rpcapi", "eth,web3", "--rpcvhosts", "*", "--datadir", "/data/eth", "--rpcport", "8545", "--networkid", "2020", "--mine", "--minerthreads", "2", "--rpc", "--rpcaddr", "0.0.0.0"]
