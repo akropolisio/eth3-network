@@ -10,11 +10,12 @@ services:
 
   miner:
     image: akropolisio/geth-miner
+    build: .
     networks:
       - eth
     ports:
-      - "8545"
-      - "30303"
+      - "8545:8545"
+      - "30303:30303"
     volumes:
       - ./miner-data:/data/eth
 
@@ -33,4 +34,6 @@ services:
 
 networks:
   back:
+    driver: bridge
   eth:
+    driver: bridge
