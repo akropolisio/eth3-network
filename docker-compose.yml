@@ -6,14 +6,23 @@ services:
     volumes:
       - ./db-data:/var/lib/postgresql/data
 
-  miner:
+  miner1:
     image: akropolisio/geth-miner
     build: .
     ports:
-      - "8545:8545"
-      - "30303:30303"
+      - "8540:8540"
+      - "30300:30300"
     volumes:
-      - ./miner-data:/data/eth
+      - ./miner1-data:/data/eth
+
+  miner2:
+    image: akropolisio/geth-miner
+    build: .
+    ports:
+      - "8540:8540"
+      - "30300:30300"
+    volumes:
+      - ./miner2-data:/data/eth
 
   blockpipe:
     image: akropolisio/blockpipe:latest
@@ -24,4 +33,4 @@ services:
     environment:
       - RUST_BACKTRACE=1
       - PG_PATH=postgres://bp_writer:password@db/blockpipe
-      - RPC_PATH=http://miner:8545/
+      - RPC_PATH=http://miner1:8540/
