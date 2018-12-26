@@ -1,0 +1,28 @@
+[parity]
+chain = "chain-spec.json"
+base_path = "./p0"
+
+[network]
+port = 30300
+
+[rpc]
+port = 8540
+apis = ["web3", "eth", "rpc", "net", "parity", "parity_set", "parity_accounts", "traces", "personal"]
+
+[ipc]
+disable = true
+
+[dapps]
+disable = true
+
+[websockets]
+disable = true
+
+# [account]
+# password = ["node.pwds"]
+
+[mining]
+# engine_signer = "0x00Bd138aBD70e2F00903268F3Db08f2D25677C9e"
+reseal_on_txs = "all"
+reseal_min_period = 0
+min_gas_price = 0
